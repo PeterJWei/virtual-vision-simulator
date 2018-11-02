@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<character name='ralph' model='ralph/ralph.egg' textures='ralph' animations='ralph'>
+	<action name='walk' anim='ralph-walk.egg' angle='0' diff='-20 10 10'>
+	</action>
+	<action name='stand' anim='ralph-jump.egg' angle='0' diff='0 0 0'></action>
+</character>

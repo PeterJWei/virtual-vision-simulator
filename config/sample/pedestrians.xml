@@ -1,3 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <pedestrians>
+	<pedestrian character='ralph' texture='ralph.png' pos='-780 0 -50' scale='10' hpr='90 0 0'>
+        <commands start_time='1'>walk walk walk walk walk walk</commands>
+    </pedestrian>
 </pedestrians>
