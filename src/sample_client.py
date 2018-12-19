@@ -25,10 +25,11 @@
 import wx
 import sys
 import socket
-import cv
+import cv2
 import thread
 import argparse
 import logging
+import numpy as np
 
 from pandac.PandaModules import NetDatagram
 from simulator.panda3d.server.socket_packet import SocketPacket
@@ -275,10 +276,12 @@ class MyFrame(wx.Frame):
         w.add_int(self.cam_id)
         w.encode_header()
         self.write_packet(w)
+        print("Sending packet to get image")
 
 
     def new_data_callback(self, packet):
         message_type = packet.get_int()
+        print("Got packet")
         if message_type == VV_ACK_OK:
           server_ip = packet.get_string()
           server_port = packet.get_int()
@@ -323,21 +326,25 @@ class MyFrame(wx.Frame):
             image = packet.get_string()
 
             cv_im = self.createImage(image, width, height, depth, color_code, jpeg)
-
+            cv_im = cv2.flip(cv_im, 0)
             self.camera_id = cam_id
-            cv.ShowImage("Image", cv_im)
+            cv2.imshow("Image", cv_im)
             if self.save_images:
-                cv.SaveImage("cam%s_%s.jpg" % (cam_id, self.count), cv_im)
-                self.count+=1
-            cv.WaitKey()
+                cv2.imwrite("pic.png", cv_im)
+                #cv.SaveImage("cam%s_%s.jpg" % (cam_id, self.count), cv_im)
+                #self.count+=1
+            cv2.waitKey()
 
 
     def createImage(self, image_data, width, height, depth, color_code, jpeg=False):
+        #print(image_data)
         if jpeg:
             length = len(image_data)
-            image = cv.CreateMatHeader(1, length, cv.CV_8UC1)
-            cv.SetData(image, image_data, length)
-            return cv.DecodeImage(image)
+            nparr = np.fromstring(image_data, np.uint8)
+            #nparr = nparr.reshape((768, 1024, 3))
+            #image = cv.CreateMatHeader(1, length, cv.CV_8UC1)
+            #cv.SetData(image, image_data, length)
+            return cv2.imdecode(nparr,  cv2.IMREAD_COLOR)#cv2.IMREAD_COLOR)#nparr.reshape((1024, 768, 3))#cv.DecodeImage(image)
         else:
             image = cv.CreateImageHeader((width, height), depth, 4)
             cv.SetData(image, image_data)

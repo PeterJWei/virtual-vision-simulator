@@ -65,6 +65,8 @@ class CameraManager:
 
     def getAvailableCamera(self, type):
         for cam_id, camera in self.local_cameras.items():
+            logging.debug("Camera: " + str(cam_id))
+        for cam_id, camera in self.local_cameras.items():
             if not camera.hasSession() and camera.getType() == type:
                 return camera
         return None

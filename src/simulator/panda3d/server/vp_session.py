@@ -24,7 +24,7 @@
 
 import sys, os
 sys.path.append(os.path.join(os.getcwd(), '..' ))
-import cv
+import cv2
 
 from socket_packet import SocketPacket
 from message_handler import *

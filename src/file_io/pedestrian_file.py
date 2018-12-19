@@ -41,6 +41,7 @@ class PedestrianFileHandler(handler.ContentHandler):
         pass
 
     def startElement(self, name, attrs):
+        print(name)
         if name == "pedestrian":
             character = attrs['character']
             texture = attrs['texture']

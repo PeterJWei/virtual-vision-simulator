@@ -31,6 +31,7 @@ from direct.interval.ActorInterval import ActorInterval
 from direct.interval.IntervalGlobal import Func, Parallel, Sequence, Wait
 
 from panda3d_helper import *
+from panda3d.core import Point3
 
 HEADING_X = 225
 HEADING_X_FEMALE = 0
@@ -68,7 +69,7 @@ class PandaPedestrian:
         self.type = "male"
         self.id = -1
         self.pos = np.array([0,0,0])
-        self.loop = False
+        self.loop = True
         self.sequence = Parallel()
         
         self.live_controller = False
@@ -156,22 +157,32 @@ class PandaPedestrian:
                             next_action = 'walk'
                     
                         self.startAction(next_action)
+                    else:
+                        next_action = 'walk'
+                        self.startAction(next_action)
 
     
     def isActive(self, time):
+        #print(self.live_controller)
         if time >= self.start_time and self.command_queue or \
            time >= self.start_time and self.live_controller:
             if self.actor.isHidden():
                 self.actor.show()
             return True
         else:
-            if not self.actor.isHidden():
-                self.actor.hide()
             return False
+            # if not self.actor.isHidden():
+            #     self.actor.hide()
+            # return False
 
 
-    def reposition(self, diff, rotation):
-        x,y,z = diff
+    def reposition(self, x, y, z, rotation):
+        #x,y,z = diff
+        #x1, y1, z1 = pos
+        #print((x, y, z, rotation))
+        #print((interval, x1, y1, z1, x,y,z))
+        #return self.actor.posInterval(Point3(0, 0, 0), duration=3.0)
+        #return self.actor.posInterval(interval, Point3(x+x1, y+y1, z+z1))
         self.actor.setX(x)
         self.actor.setY(y)
         self.actor.setH(self.actor.getH() + rotation)
@@ -191,17 +202,21 @@ class PandaPedestrian:
         rotation = self.actions[cur_action].rotation
         self.cur_action = action
         paction = self.actions[action]
+        
         if cur_action != "stand":
-            diff = self.joint.getPos(render) - paction.diff
+            diff = self.joint.getPos(render) - paction.diff#self.pos = diff
         else:
             diff = self.actor.getPos()
             
         if self.print_action:
             print paction.name,
-            
+        x, y, z = diff
         interval = self.actor.actorInterval(paction.name)
-        func = Func(self.reposition, diff, rotation)
-        self.sequence = Parallel(Sequence(Wait(0.001),func), interval)
+        func = Func(self.reposition, x, y, z, rotation)
+        func1 = self.actor.posInterval(interval.duration, Point3(x, y, z))
+        func2 = self.actor.hprInterval(interval.duration, Vec3(self.actor.getH() + rotation, 0,0))
+        #self.sequence=Parallel(Sequence(func1), interval)
+        self.sequence = Parallel(func2, func1, interval)
         self.sequence.start()
 
 #        self.actor.play(paction.name)

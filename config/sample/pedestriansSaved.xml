@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<pedestrians>
+	<pedestrian character='ralphGreen' texture='ralphGreen.png' pos='-800 0 0' scale='10' hpr='90 0 0'>
+        <commands start_time='0'>walk walk walk walk walk r45 walkrightforward walkrightforward walkrightforward walkrightforward r45 walkright walkright walkright l90 walk walk walk walk walk walk walk walk walk walk walk walk walk walk walk walk walk walk walk walk l90 walkleft walkleft walkleft walkleft walkleft</commands>
+    </pedestrian>
+    <pedestrian character='ralphBlue' texture='ralphBlue.png' pos='-800 0 0' scale='10' hpr='90 0 0'>
+        <commands start_time='3'>walk walk walk walk walk l45 walkleftforward walkleftforward walkleftforward walkleftforward l45 walkleft walkleft walkleft r90 walk walk walk walk walk walk walk walk walk walk walk walk walk walk walk walk walk walk walk walk</commands>
+    </pedestrian>
+    <pedestrian character='ralphYellow' texture='ralphYellow.png' pos='-800 0 0' scale='10' hpr='90 0 0'>
+        <commands start_time='5'>walk walk walk walk walk walk walk walk walk walk walk walk l45 walkleftforward walkleftforward walkleftforward walkleftforward l90 l45 walkback</commands>
+    </pedestrian>
+    <pedestrian character='ralphWhite' texture='ralphWhite.png' pos='-800 0 0' scale='10' hpr='90 0 0'>
+        <commands start_time='8'>walk walk walk walk walk walk walk walk walk walk walk walk r45 walkrightforward walkrightforward walkrightforward walkrightforward r90 r45 walkback</commands>
+    </pedestrian>
+    <pedestrian character='ralphBrown' texture='ralphBrown.png' pos='-800 0 0' scale='10' hpr='90 0 0'>
+        <commands start_time='11'>walk walk walk walk walk walk walk walk walk walk walk walk</commands>
+    </pedestrian>
+    <pedestrian character='ralph' texture='ralph.png' pos='-800 0 0' scale='10' hpr='90 0 0'>
+        <commands start_time='16'>walk walk walk l90 l45 walkleft stand</commands>
+    </pedestrian>
+</pedestrians>

@@ -28,7 +28,7 @@ from panda3d.core import Material
 from pandac.PandaModules import VBase4, VBase3
 
 import numpy as np
-import cv
+import cv2
 
 from ..panda3d_helper import *
 
@@ -338,13 +338,19 @@ class PandaCamera:
             
         texture = self.buffer.getTexture()
         image = texture.getRamImage()#As('BGRA')
+
         image_string = image.getData()
         width = self.width
         height = self.height
-        cv_im = cv.CreateImageHeader((width, height), cv.IPL_DEPTH_8U, 4)
-        cv.SetData(cv_im, image_string)
-        cv.Flip(cv_im, None, 0)
-        self.frame_data = {"width":width, "height":height, "data":cv_im, 
+        nparr = np.fromstring(image_string, np.uint8)
+        print(nparr)
+        print(nparr.shape)
+        img_np = nparr.reshape((768, 1024, 3))#cv2.imdecode(nparr,  1)#cv2.IMREAD_COLOR)
+        print("New image shape: " + str(img_np.shape))
+        #cv_im = cv2.CreateImageHeader((width, height), cv2.IPL_DEPTH_8U, 4)
+        #cv2.SetData(cv_im, image_string)
+        img_np = cv2.flip(img_np, 0)
+        self.frame_data = {"width":width, "height":height, "data":img_np, 
                            "time":self.cur_time}
         return self.frame_data
 

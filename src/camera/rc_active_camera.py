@@ -25,7 +25,7 @@
 import logging
 from math import fabs
 
-import cv
+import cv2
 
 from ptz_camera.ptz_camera import PTZCamera
 from simulator.panda3d.server.message_handler import *
@@ -219,21 +219,25 @@ class RCActiveCamera(PTZCamera):
             exp_w = self.image_width
             exp_h = self.image_height
             jpeg = True
-
         # Resize image if the expected height and width are not met.
+        exp_w = 1024
+        exp_h = 768
         if exp_w != frm_w or exp_h != frm_h:
-            new_image = cv.CreateImage((exp_w, exp_h), cv.IPL_DEPTH_8U, 4)
-            cv.Resize(image_data, new_image)
+            print((exp_w,exp_h))
+            new_image = cv2.resize(image_data, (exp_w, exp_h))
+            #new_image = cv.CreateImage((exp_w, exp_h), cv.IPL_DEPTH_8U, 4)
+            #cv.Resize(image_data, new_image)
         
         else:
             new_image = image_data
 
         if jpeg:
-            new_image = cv.EncodeImage('.jpg', new_image)
-        
-        image_string = new_image.tostring()
+            new_image = cv2.imencode('.jpg', new_image)#cv.EncodeImage('.jpg', new_image)
+        print(new_image[1].shape)
+        image_string = new_image[1].tostring()
         message = eVV_IMG(self.ip, self.port, self.id, exp_w, exp_h, 
-                          cv.IPL_DEPTH_8U, BGRA, jpeg, frm_time, image_string)
+                          8,#cv.IPL_DEPTH_8U, 
+                          BGRA, jpeg, frm_time, image_string)
         self.vp.sendMessage(message)
 
         logging.debug("Sent VV_IMG message to conn:%s, frame_time: %s, jpeg:%s" 

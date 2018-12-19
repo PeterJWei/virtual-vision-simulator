@@ -1,6 +1,106 @@
 <?xml version='1.0' encoding='UTF-8'?>
+<characters>
 <character name='ralph' model='ralph/ralph.egg' textures='ralph' animations='ralph'>
-	<action name='walk' anim='ralph-walk.egg' angle='0' diff='-20 10 10'>
-	</action>
-	<action name='stand' anim='ralph-jump.egg' angle='0' diff='0 0 0'></action>
+	<action name='walk' anim='ralph-walk.egg' angle='0' diff='-50 0 0'></action>
+	<action name='stand' anim='ralph-walk.egg' angle='0' diff='0 0 0'></action>
+	<action name='l90' anim='ralph-walk.egg' angle='90' diff='0 0 0'></action>
+	<action name='l45' anim='ralph-walk.egg' angle='45' diff='0 0 0'></action>
+	<action name='r90' anim='ralph-walk.egg' angle='-90' diff='0 0 0'></action>
+	<action name='r45' anim='ralph-walk.egg' angle='-45' diff='0 0 0'></action>
+	<action name='turnaround' anim='ralph-walk.egg' angle='180' diff='0 0 0'></action>
+	<action name='walkback' anim='ralph-walk.egg' angle='0' diff='50 0 0'></action>
+	<action name='walkleft' anim='ralph-walk.egg' angle='0' diff='0 -50 0'></action>
+	<action name='walkright' anim='ralph-walk.egg' angle='0' diff='0 50 0'></action>
+	<action name='walkrightforward' anim='ralph-walk.egg' angle='0' diff='-30 30 0'></action>
+	<action name='walkleftforward' anim='ralph-walk.egg' angle='0' diff='-30 -30 0'></action>
+	<action name='walkrightback' anim='ralph-walk.egg' angle='0' diff='30 30 0'></action>
+	<action name='walkleftback' anim='ralph-walk.egg' angle='0' diff='30 -30 0'></action>
 </character>
+<character name='ralphGreen' model='ralphGreen/ralphGreen.egg' textures='ralphGreen' animations='ralphGreen'>
+	<action name='walk' anim='ralphGreen-walk.egg' angle='0' diff='-50 0 0'></action>
+	<action name='stand' anim='ralphGreen-walk.egg' angle='0' diff='0 0 0'></action>
+	<action name='l90' anim='ralphGreen-walk.egg' angle='90' diff='0 0 0'></action>
+	<action name='l45' anim='ralphGreen-walk.egg' angle='45' diff='0 0 0'></action>
+	<action name='r90' anim='ralphGreen-walk.egg' angle='-90' diff='0 0 0'></action>
+	<action name='r45' anim='ralphGreen-walk.egg' angle='-45' diff='0 0 0'></action>
+	<action name='turnaround' anim='ralphGreen-walk.egg' angle='180' diff='0 0 0'></action>
+	<action name='walkback' anim='ralphGreen-walk.egg' angle='0' diff='50 0 0'></action>
+	<action name='walkleft' anim='ralphGreen-walk.egg' angle='0' diff='0 -50 0'></action>
+	<action name='walkright' anim='ralphGreen-walk.egg' angle='0' diff='0 50 0'></action>
+	<action name='walkrightforward' anim='ralphGreen-walk.egg' angle='0' diff='-30 30 0'></action>
+	<action name='walkleftforward' anim='ralphGreen-walk.egg' angle='0' diff='-30 -30 0'></action>
+	<action name='walkrightback' anim='ralphGreen-walk.egg' angle='0' diff='30 30 0'></action>
+	<action name='walkleftback' anim='ralphGreen-walk.egg' angle='0' diff='30 -30 0'></action>
+</character>
+<character name='ralphBlue' model='ralphBlue/ralphBlue.egg' textures='ralphBlue' animations='ralphBlue'>
+	<action name='walk' anim='ralphBlue-walk.egg' angle='0' diff='-50 0 0'></action>
+	<action name='stand' anim='ralphBlue-walk.egg' angle='0' diff='0 0 0'></action>
+	<action name='l90' anim='ralphBlue-walk.egg' angle='90' diff='0 0 0'></action>
+	<action name='l45' anim='ralphBlue-walk.egg' angle='45' diff='0 0 0'></action>
+	<action name='r90' anim='ralphBlue-walk.egg' angle='-90' diff='0 0 0'></action>
+	<action name='r45' anim='ralphBlue-walk.egg' angle='-45' diff='0 0 0'></action>
+	<action name='turnaround' anim='ralphBlue-walk.egg' angle='180' diff='0 0 0'></action>
+	<action name='walkback' anim='ralphBlue-walk.egg' angle='0' diff='50 0 0'></action>
+	<action name='walkleft' anim='ralphBlue-walk.egg' angle='0' diff='0 -50 0'></action>
+	<action name='walkright' anim='ralphBlue-walk.egg' angle='0' diff='0 50 0'></action>
+	<action name='walkrightforward' anim='ralphBlue-walk.egg' angle='0' diff='-30 30 0'></action>
+	<action name='walkleftforward' anim='ralphBlue-walk.egg' angle='0' diff='-30 -30 0'></action>
+	<action name='walkrightback' anim='ralphBlue-walk.egg' angle='0' diff='30 30 0'></action>
+	<action name='walkleftback' anim='ralphBlue-walk.egg' angle='0' diff='30 -30 0'></action>
+</character>
+<character name='ralphYellow' model='ralphYellow/ralphYellow.egg' textures='ralphYellow' animations='ralphYellow'>
+	<action name='walk' anim='ralphYellow-walk.egg' angle='0' diff='-50 0 0'></action>
+	<action name='stand' anim='ralphYellow-walk.egg' angle='0' diff='0 0 0'></action>
+	<action name='l90' anim='ralphYellow-walk.egg' angle='90' diff='0 0 0'></action>
+	<action name='l45' anim='ralphYellow-walk.egg' angle='45' diff='0 0 0'></action>
+	<action name='r90' anim='ralphYellow-walk.egg' angle='-90' diff='0 0 0'></action>
+	<action name='r45' anim='ralphYellow-walk.egg' angle='-45' diff='0 0 0'></action>
+	<action name='turnaround' anim='ralphYellow-walk.egg' angle='180' diff='0 0 0'></action>
+	<action name='walkback' anim='ralphYellow-walk.egg' angle='0' diff='50 0 0'></action>
+	<action name='walkleft' anim='ralphYellow-walk.egg' angle='0' diff='0 -50 0'></action>
+	<action name='walkright' anim='ralphYellow-walk.egg' angle='0' diff='0 50 0'></action>
+	<action name='walkrightforward' anim='ralphYellow-walk.egg' angle='0' diff='-30 30 0'></action>
+	<action name='walkleftforward' anim='ralphYellow-walk.egg' angle='0' diff='-30 -30 0'></action>
+	<action name='walkrightback' anim='ralphYellow-walk.egg' angle='0' diff='30 30 0'></action>
+	<action name='walkleftback' anim='ralphYellow-walk.egg' angle='0' diff='30 -30 0'></action>
+</character>
+<character name='ralphWhite' model='ralphWhite/ralphWhite.egg' textures='ralphWhite' animations='ralphWhite'>
+	<action name='walk' anim='ralphWhite-walk.egg' angle='0' diff='-50 0 0'></action>
+	<action name='stand' anim='ralphWhite-walk.egg' angle='0' diff='0 0 0'></action>
+	<action name='l90' anim='ralphWhite-walk.egg' angle='90' diff='0 0 0'></action>
+	<action name='l45' anim='ralphWhite-walk.egg' angle='45' diff='0 0 0'></action>
+	<action name='r90' anim='ralphWhite-walk.egg' angle='-90' diff='0 0 0'></action>
+	<action name='r45' anim='ralphWhite-walk.egg' angle='-45' diff='0 0 0'></action>
+	<action name='turnaround' anim='ralphWhite-walk.egg' angle='180' diff='0 0 0'></action>
+	<action name='walkback' anim='ralphWhite-walk.egg' angle='0' diff='50 0 0'></action>
+	<action name='walkleft' anim='ralphWhite-walk.egg' angle='0' diff='0 -50 0'></action>
+	<action name='walkright' anim='ralphWhite-walk.egg' angle='0' diff='0 50 0'></action>
+	<action name='walkrightforward' anim='ralphWhite-walk.egg' angle='0' diff='-30 30 0'></action>
+	<action name='walkleftforward' anim='ralphWhite-walk.egg' angle='0' diff='-30 -30 0'></action>
+	<action name='walkrightback' anim='ralphWhite-walk.egg' angle='0' diff='30 30 0'></action>
+	<action name='walkleftback' anim='ralphWhite-walk.egg' angle='0' diff='30 -30 0'></action>
+</character>
+<character name='ralphBrown' model='ralphBrown/ralphBrown.egg' textures='ralphBrown' animations='ralphBrown'>
+	<action name='walk' anim='ralphBrown-walk.egg' angle='0' diff='-50 0 0'></action>
+	<action name='stand' anim='ralphBrown-walk.egg' angle='0' diff='0 0 0'></action>
+	<action name='l90' anim='ralphBrown-walk.egg' angle='90' diff='0 0 0'></action>
+	<action name='l45' anim='ralphBrown-walk.egg' angle='45' diff='0 0 0'></action>
+	<action name='r90' anim='ralphBrown-walk.egg' angle='-90' diff='0 0 0'></action>
+	<action name='r45' anim='ralphBrown-walk.egg' angle='-45' diff='0 0 0'></action>
+	<action name='turnaround' anim='ralphBrown-walk.egg' angle='180' diff='0 0 0'></action>
+	<action name='walkback' anim='ralphBrown-walk.egg' angle='0' diff='50 0 0'></action>
+	<action name='walkleft' anim='ralphBrown-walk.egg' angle='0' diff='0 -50 0'></action>
+	<action name='walkright' anim='ralphBrown-walk.egg' angle='0' diff='0 50 0'></action>
+	<action name='walkrightforward' anim='ralphBrown-walk.egg' angle='0' diff='-30 30 0'></action>
+	<action name='walkleftforward' anim='ralphBrown-walk.egg' angle='0' diff='-30 -30 0'></action>
+	<action name='walkrightback' anim='ralphBrown-walk.egg' angle='0' diff='30 30 0'></action>
+	<action name='walkleftback' anim='ralphBrown-walk.egg' angle='0' diff='30 -30 0'></action>
+</character>
+<!-- <character name='ralphGreen' model='ralphGreen/ralphGreen.egg' textures='ralphGreen' animations='ralphGreen'>
+	<action name='walk' anim='ralphGreen-walk.egg' angle='0' diff='-50 0 0'></action>
+	<action name='stand' anim='ralphGreen-walk.egg' angle='0' diff='0 0 0'></action>
+	<action name='l90' anim='ralphGreen-walk.egg' angle='90' diff='0 0 0'></action>
+	<action name='l45' anim='ralphGreen-walk.egg' angle='45' diff='0 0 0'></action>
+	<action name='walkright' anim='ralphGreen-walk.egg' angle='0' diff='0 -50 0'></action>
+</character> -->
+</characters>

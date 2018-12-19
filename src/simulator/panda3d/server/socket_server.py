@@ -270,6 +270,9 @@ class SocketServer():
                 camera_type = ACTIVE_CAMERA
             if camera_type != -1:
                 cam = self.cam_mgr.getAvailableCamera(camera_type)
+                ##########################
+                ### WHAT THE FUCK DOES THIS METHOD DO
+                ##########################
                 if cam:
                     session = VPSession(conn_id, conn, self, VP, pipeline)
                     session.addCamera(cam.getId())
