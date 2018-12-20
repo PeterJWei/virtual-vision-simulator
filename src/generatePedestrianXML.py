@@ -4,7 +4,7 @@ import random
 import sys
 print(sys.argv[1])
 def generateRandomPath(init_x, init_y, heading):
-	actions = 40
+	actions = 100
 	path = ""
 	x = init_x-50
 	y = init_y

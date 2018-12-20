@@ -1,0 +1,29 @@
+Some documentation
+---- 7/13/2018
+
+1, RL_brain_test.py ----> This is the file in which the desired DNN model structure is defined. In the build net function, one evaluation net 
+			  and one target net with the same strutcture are created. To add more hidden layers just copy the code block which 
+			  defines either first or second layer and change the variable names accordingly. The final layer tensor which contains 
+			  the final outcome is named "output". The learn function does the training and defines how frequently the parameters 
+			  stored in the eval net will replace the target net ones.
+
+2, run_this_test.py ----> This file is where the training is done. The run_maze function is the training function. action_total is the total 
+			  number of possible actions. 
+			  
+			  In run_maze, input variables of current states, rewards, and next state are stored in x.csv, 
+			  y.csv, and z.csv, respectively. For new training just replace them with your files. Right now the training only goes 
+			  upto the 30000 step. After the training, I save the model in a sub-directory. To train new model, feel free to change the total
+			  iteration number and model name (in the saver.save function). 
+
+			  To create a different RL network, change the paramaters in the DeepQNetwork constructor. The first number is the total action
+			  nmumber and the second number is the number of system variables. After training is done, a cost plot should be printed.
+
+3, use_model.py    ----> This file is just an example of how the model is going to be used. First, import the meta graph and the checkpoint from the 
+			 trained model. Next, restore the graph structure and get the corresponding tensors from the graph (This is why we need to give
+			 the output tensor a name in the RL_brain _test.py file). Then, get a new testing input array from wherever you want. Remember to
+		         flaten the array into a 1-d numpy array. Finally, start a tf session, restore the weights, and feed in the iinput array into the 
+			 input tensor. A huge array should be printed to the terminal if everything works fine. 
+
+(For reference please visit https://morvanzhou.github.io/tutorials/machine-learning/reinforcement-learning/4-1-A-DQN/) 
+			  
+   

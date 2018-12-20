@@ -264,13 +264,13 @@ class Client:
         w.add_int(self.cam_id)
         w.encode_header()
         self.write_packet(w)
-        print("Sending packet to get image")
+        #print("Sending packet to get image")
 
 
     def new_data_callback(self, packet):
         message_type = packet.get_int()
         data = None
-        print("Got packet, " + str(message_type))
+        #print("Got packet, " + str(message_type))
         if message_type == VV_ACK_OK:
             logging.debug("VV_ACK_OK")
             server_ip = packet.get_string()
@@ -365,7 +365,7 @@ class Client:
         while 0 not in messages or 9 not in messages or 5 not in messages:
             m, d = self.step()
             messages.extend(m)
-            print(messages)
+            #print(messages)
             time.sleep(0.5)
         #self.initBackground()
         #print("initialized background")
@@ -448,7 +448,7 @@ class Client:
                         #stack = np.hstack((image, self.background, newImage2, newImage))
                         
                         newImage = cv2.cvtColor(newImage, cv2.COLOR_BGR2GRAY)
-                        print((image.shape, newImage.shape))
+                        #print((image.shape, newImage.shape))
                         image = cv2.bitwise_and(image, image, mask=newImage.astype(np.uint8))
                         outputs = []
                         params = cv2.SimpleBlobDetector_Params()
@@ -482,15 +482,15 @@ class Client:
                                 found.append(D[i])
                                 
                                 x,y = lowestPointFlood(output, keypoints[0].pt[0], keypoints[0].pt[1])
-                                print("Lowest Point: " + str(x) + "," + str(y))
+                                #print("Lowest Point: " + str(x) + "," + str(y))
                                 half_fov = self.z/2
                                 pan_angle = self.init_pan - self.p - (float(x)-512.0)/512.0*(half_fov)
                                 tilt_angle = self.init_tilt - self.t + (float(y)-384.0)/384.0*(half_fov*768.0/1024.0)
                                 r = self.init_z*1.0/math.tan(math.radians(tilt_angle))
-                                print("Angles: (" + str(pan_angle) + "," + str(tilt_angle) + "); r = " + str(r))
+                                #print("Angles: (" + str(pan_angle) + "," + str(tilt_angle) + "); r = " + str(r))
                                 new_y = self.init_y - math.sin(math.radians(pan_angle))*r
                                 new_x = self.init_x + math.cos(math.radians(pan_angle))*r
-                                print("Ralph " + D[i] + " at position " + str(new_x) + "," + str(new_y))
+                                #print("Ralph " + D[i] + " at position " + str(new_x) + "," + str(new_y))
                                 positionDictionary[i] = (new_x,new_y)
                         
                         print("Ralphs found: " + ",".join(found))
@@ -504,7 +504,7 @@ class Client:
                             self.image_num += 1
                             #cv2.imwrite("camera" + str(self.camera_id) + "_2"+ str(self.image_num) + ".png", stack)
                         break
-                print("wrote image")
+                #print("wrote image")
             return positionDictionary
         elif Input == 1:
             self.pan(True)
@@ -522,6 +522,8 @@ class Client:
             self.onoff = not self.onoff
         elif Input == 8:
             return None
+        else:
+            self.onoff = not self.onoff
         return None
 
     def drawBox(self, img, x1, x2, y1, y2, colors):
@@ -605,11 +607,11 @@ def getState(clients, positions):
     #camera positions
     for client in clients:
         on = 1 if client.onoff else 0
-        state.extend([client.p, client.t, client.z, on])
+        state.extend([client.p*1.0/30, client.t*1.0/30, client.z*1.0/100, on])
     #camera
-    for position in positions:
-        state.extend([position[0], position[1]])
-    print(state)
+    # for position in positions:
+    #     state.extend([position[0], position[1]])
+    #print(state)
     return state
 
 def controller(clients):
@@ -617,38 +619,62 @@ def controller(clients):
     #print("Loaded Detector")
     for client in clients:
         client.MainLoop()
-    positions = [(-1000000,-1000000)]*6
+    positions = [(-1000,-1000)]*6
     state = getState(clients, positions)
     nextState = state
+    rewards = []
+    rewardsSeen = []
     while True:
         state = nextState
         #get state
 
-        # sess1 = tf.Session()
-        # saver = tf.train.import_meta_graph('./model_a_3_b_1/model_a_3_b_1.meta', clear_devices=True)
-        # saver.restore(sess1, tf.train.latest_checkpoint('./model_a_3_b_1'))
+        
+        # choose actions
 
-        # graph = tf.get_default_graph()
-        # x1 = graph.get_tensor_by_name('s:0')
-        # y1 = graph.get_tensor_by_name('eval_net/l3/output:0')
+        randomAction = False
+        if randomAction:
+            clientNum = randint(0,9)
+            client = clients[clientNum]
+            action = randint(1,16)
+            if action > 8:
+                action = 7
+            client.controlInput(action)
+            actionNum = clientNum*8+(action-1)
+            assert(0 <= actionNum < 80)
+            print("Camera " + str(clientNum+1) + ", Action " + str(action))
+        else:
+            sess1 = tf.Session()
+            saver = tf.train.import_meta_graph('./model_a_0_b_1/model_a_0_b_1.meta', clear_devices=True)
+            saver.restore(sess1, tf.train.latest_checkpoint('./model_a_0_b_1'))
 
-        # npState = np.array([state])
+            graph = tf.get_default_graph()
+            x1 = graph.get_tensor_by_name('s:0')
+            y1 = graph.get_tensor_by_name('eval_net/l3/output:0')
 
-        # with tf.Session() as sess:
-        #     sess.run(tf.global_variables_initializer())
-        #     y_out = sess.run(y1, feed_dict = {x1:npState})
-        #     print("y_out length")
-        #     print(y_out)
-        #     print(str(y_out.shape))
-        #choose actions
+            npState = np.array([state])
 
-        # for client in clients:
-        clientNum = randint(0,9)
-        client = clients[clientNum]
-        action = randint(1,8)
-        client.controlInput(action)
-        actionNum = clientNum*8+(action-1)
-        assert(0 <= actionNum < 80)
+            with tf.Session() as sess:
+                sess.run(tf.global_variables_initializer())
+                y_out = sess.run(y1, feed_dict = {x1:npState})
+                print("y_out length: " + str(y_out.shape))
+                #print(y_out)
+                #print(str(y_out.shape))
+
+            clientActions = y_out[0]
+            for i in range(10):
+                print(clientActions[i*8:i*8+8])
+            # actionNum = np.argmax(clientActions)
+            # client = clients[actionNum/8]
+            # action = actionNum%8
+            # client.controlInput(action)
+            # print("Camera " + str(actionNum/8+1) + ", Action " + str(actionNum%8))
+            for i in range(len(clients)):
+              clientActions = y_out[0][i*8:i*8+8]
+              client = clients[i]
+              action = np.argmax(clientActions)+1
+              client.controlInput(action)
+              actionNum = i*8+action
+
 
         #wait
 
@@ -658,7 +684,7 @@ def controller(clients):
 
         print("Getting images...")
 
-        positions = [(-1000000,-1000000)]*6 #no positions
+        positions = [(-1000,-1000)]*6 #no positions
         for client in clients:
             if client.onoff:
                 client.callImage()
@@ -671,40 +697,57 @@ def controller(clients):
             if client.onoff:
                 client.callImage()
 
+        camerasOn = 0
         for client in clients:
             if client.onoff:
+                camerasOn += 1
                 positionDictionary = client.controlInput(0)
                 for color in positionDictionary: #color is a number, 1 for red, etc
                     positions[color] = positionDictionary[color]
                 #boxes, scores, classes, num = RD.getClassification(img2)
 
+
         seen = False
+        peopleSeen = 0
         for position in positions:
-            if position[0] != -1000000 or position[1] != -1000000:
+            if position[0] != -1000 or position[1] != -1000:
                 seen = True
-                break
+                peopleSeen += 1
+
 
         if not seen:
+            with open('r.csv', 'a') as csvfile:
+                statewriter = csv.writer(csvfile, delimiter=',')
+                print("Writing rewards file...")
+                rewards = [sum(rewards)*1.0/len(rewards)] + rewards
+                statewriter.writerow(rewards)
+                rewardsSeen = [sum(rewardsSeen)*1.0/len(rewardsSeen)] + rewardsSeen
+                statewriter.writerow(rewardsSeen)
             break
-
+        rewards.append(camerasOn)
+        rewardsSeen.append(peopleSeen)
+        print("\n\n##################################")
+        print("Cameras on: " + str(camerasOn))
+        print("People tracked: " + str(peopleSeen))
+        print("##################################\n\n")
         nextState = getState(clients, positions)
         #save state, next state
         with open('x.csv', 'a') as csvfile:
             statewriter = csv.writer(csvfile, delimiter=',')
-            print("Writing state file...")
-            print(state)
+            #print("Writing state file...")
+            #print(state)
             statewriter.writerow(state)
 
         with open('a.csv', 'a') as csvfile:
             statewriter = csv.writer(csvfile, delimiter=',')
-            print("Writing action file...")
-            print(actionNum)
+            #print("Writing action file...")
+            #print(actionNum)
             statewriter.writerow([actionNum])
 
         with open('z.csv', 'a') as csvfile:
             statewriter = csv.writer(csvfile, delimiter=',')
-            print("Writing next state file...")
-            print(nextState)
+            #print("Writing next state file...")
+            #print(nextState)
             statewriter.writerow(nextState)
 
 def main():
